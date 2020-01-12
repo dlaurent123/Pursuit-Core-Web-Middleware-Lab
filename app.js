@@ -9,9 +9,9 @@ app.use(cors());
 
 let aniArray = ["ant", "lion", "tiger", "bear"]
 
-const isAnimal = (req, res, next) =>{
+const isAnimalMiddleware = (req, res, next) =>{
     let input = req.params.species
-    console.log(input)
+    
   if(aniArray.includes(input)){
       next();
     } else {
@@ -20,9 +20,7 @@ const isAnimal = (req, res, next) =>{
     }
 }
 
-app.use("/animal/:species", isAnimal)
-
-app.get("/animal/:species",(req,res)=>{
+app.get("/animal/:species",isAnimalMiddleware,(req,res)=>{
     res.json({status:"Success", message: true})
 })
 
